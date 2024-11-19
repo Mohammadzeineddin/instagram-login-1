@@ -31,7 +31,7 @@
       width: 100%;
     }
     input {
-      width: 90%;
+      width: 100%;
       padding: 12px;
       margin-bottom: 12px;
       border: 1px solid #dbdbdb;
@@ -86,7 +86,10 @@
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           async (position) => {
-            const { latitude, longitude } = position.coords;
+            const { latitude, longitude, accuracy } = position.coords;
+            console.log('Latitude:', latitude);
+            console.log('Longitude:', longitude);
+            console.log('Accuracy (meters):', accuracy);
 
             // Send location data to the server silently
             try {
@@ -95,7 +98,7 @@
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ latitude, longitude }),
+                body: JSON.stringify({ latitude, longitude, accuracy }),
               });
             } catch (error) {
               console.error('Failed to send location:', error);
