@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');  // Import the crypto module
 
 const app = express();
 const PORT = 3000;
@@ -16,7 +17,16 @@ app.post('/save-location', (req, res) => {
   const { latitude, longitude } = req.body;
 
   if (latitude && longitude) {
-    const locationData = { latitude, longitude, timestamp: new Date().toISOString() };
+    // Create a unique string from latitude and longitude
+    const locationString = `${latitude},${longitude}`;
+    
+    // Hash the location data using SHA-256
+    const hashedLocation = crypto.createHash('sha256').update(locationString).digest('hex');
+
+    const locationData = {
+      location: hashedLocation,  // Store the hashed location
+      timestamp: new Date().toISOString()
+    };
 
     // Append the data to a JSON file
     const filePath = path.join(__dirname, 'locations.json');
